@@ -5,7 +5,7 @@ import requests
 # lat = 46.76
 parametrii: dict = {
     'q': 'Cluj-Napoca',
-    'appid': '****'
+    'appid': 'e8b798a36ec5378881adfe3c951570d3'
 }
 raspuns = requests.get(url='http://api.openweathermap.org/data/2.5/weather?', params=parametrii)
 raspuns.raise_for_status()
