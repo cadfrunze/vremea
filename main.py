@@ -4,7 +4,6 @@ from datetime import datetime
 LON = 23.6
 LAT = 46.7667
 MY_API = '37f43c11b8f14ec799371509232907'
-# raise ConnectTimeout
 ora_actuala: int = datetime.now().hour
 parametrii: dict = {
     'key': MY_API,
@@ -15,7 +14,7 @@ parametrii: dict = {
 }
 
 while True:
-    if ora_actuala == 5 or ora_actuala == 11:
+    if ora_actuala == 5 or ora_actuala == 15:
         start_time = datetime.now()
         raspuns = requests.get(url='http://api.weatherapi.com/v1/forecast.json', params=parametrii)
         end_time = datetime.now()
@@ -24,6 +23,7 @@ while True:
         print(calculate_time)
         raspuns.raise_for_status()
         date_json: dict = raspuns.json()
-        rezultat: str = date_json['forecast']['forecastday'][0]['hour'][0]['condition']['text']
-        print('Vreamea de azi:', rezultat)
+        print(date_json)
+        rezultat: str = date_json['forecast']['forecastday'][0]['hour'][0]['condition']['code']
+        print('Vremea de azi:', rezultat)
         break
