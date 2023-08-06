@@ -1,22 +1,29 @@
 import requests
 from datetime import datetime
 
-
 LON = 23.6
 LAT = 46.7667
-MY_API = '**'
+MY_API = '37f43c11b8f14ec799371509232907'
+# raise ConnectTimeout
+ora_actuala: int = datetime.now().hour
 parametrii: dict = {
-    'lat': LAT,
-    'lon': LON,
-    'appid': MY_API,
-    'lang': 'ro',
-    'units': 'metric'
+    'key': MY_API,
+    'q': 'Cluj-Napoca',
+    'hour': ora_actuala,
+    'lang': 'ro'
+
 }
 
 while True:
-    if datetime.now().hour == 22:
-        raspuns = requests.get(url='https://api.openweathermap.org/data/2.5/weather', params=parametrii)
+    if ora_actuala == 5 or ora_actuala == 11:
+        start_time = datetime.now()
+        raspuns = requests.get(url='http://api.weatherapi.com/v1/forecast.json', params=parametrii)
+        end_time = datetime.now()
+        calculate_time = (f'Am raspuns in min: {int((end_time - start_time).total_seconds() // 60)}',
+                          f'sec: {(end_time - start_time).total_seconds()}')
+        print(calculate_time)
         raspuns.raise_for_status()
         date_json: dict = raspuns.json()
-        print(date_json)
+        rezultat: str = date_json['forecast']['forecastday'][0]['hour'][0]['condition']['text']
+        print('Vreamea de azi:', rezultat)
         break
