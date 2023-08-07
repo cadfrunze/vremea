@@ -17,28 +17,33 @@ parametrii: dict = {
 
 def vremea():
     """Aleratere vreme rea!"""
-    if ora_actuala == 21:
+    global ora_actuala
+    if ora_actuala == 9 or ora_actuala == 23:
         while True:
             try:
                 raspuns = requests.get(url='http://api.weatherapi.com/v1/forecast.json', params=parametrii)
                 raspuns.raise_for_status()
             except requests.exceptions.ConnectTimeout:
-                print('am intrat in exceptie')
+                # Aici va continua la while loop
                 continue
             else:
-                print('am intrat in else_try')
+                # raspuns va primi valoarea de counexiune 200 si va prelua datele
                 date_json: dict = raspuns.json()
-                print(date_json)
+                # print(date_json)
                 rezultat: int = date_json['forecast']['forecastday'][0]['hour'][0]['condition']['code']
                 print('Vremea de azi:', rezultat)
-                time.sleep(3600)
+                minut_sleep = 60 - datetime.now().minute
+                # print(minut_sleep)
+                print(f"Trebuie sa ateptam: {(minut_sleep + 1) * 60} secunde")
+                time.sleep(int((minut_sleep + 1) * 60))
                 break
-
-    else:
-        while ora_actuala != 21:
-            continue
-        else:
-            vremea()
+    ora_actuala = datetime.now().hour
+    while ora_actuala != 9 and ora_actuala != 22:
+        ora_actuala = datetime.now().hour
+        print('am intrat in ora diferita')
+        # Daca ora este diferita va continua pana la ora afisata conform cerintelor
+        continue
+    vremea()
 
 
 vremea()

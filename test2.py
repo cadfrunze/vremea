@@ -1,16 +1,12 @@
-from datetime import datetime
-import time
-
-ora = datetime.now().hour
-minut = datetime.now().minute
+ora: int = 9
+print(ora)
 
 
-def teste():
-    while ora != 20 or minut != 47:
-        continue
-    else:
-        time.sleep(65)
-        teste()
+def test():
+    global ora
+    ora = 10
+    print(f"ora din functie este: {ora}")
 
 
-teste()
+test()
+print(f"ora din afara functiei este: {ora}")
