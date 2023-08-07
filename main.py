@@ -9,7 +9,7 @@ MY_API = '37f43c11b8f14ec799371509232907'
 ora_actuala: int = datetime.now().hour
 parametrii: dict = {
     'key': MY_API,
-    'q': 'Arendal',
+    'q': 'Östersund',
     'hour': ora_actuala,
     'lang': 'ro'
 
@@ -19,7 +19,7 @@ parametrii: dict = {
 def vremea():
     """Aleratere vreme rea!"""
     global ora_actuala
-    if ora_actuala == 9 or ora_actuala == 23:
+    if ora_actuala == 9 or ora_actuala == 0:
         while True:
             try:
                 raspuns = requests.get(url='http://api.weatherapi.com/v1/forecast.json', params=parametrii)
@@ -41,7 +41,7 @@ def vremea():
                 time.sleep(int((minut_sleep + 1) * 60))
                 break
     ora_actuala = datetime.now().hour
-    while ora_actuala != 9 and ora_actuala != 23:
+    while ora_actuala != 9 and ora_actuala != 0:
         ora_actuala = datetime.now().hour
         print('am intrat in ora diferita')
         # Daca ora este diferita va continua pana la ora afisata conform cerintelor
