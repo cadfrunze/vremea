@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime
+import time
 
 LON = 23.6
 LAT = 46.7667
@@ -13,17 +14,31 @@ parametrii: dict = {
 
 }
 
-while True:
-    if ora_actuala == 5 or ora_actuala == 20:
-        start_time = datetime.now()
-        raspuns = requests.get(url='http://api.weatherapi.com/v1/forecast.json', params=parametrii)
-        end_time = datetime.now()
-        calculate_time = (f'Am raspuns in min: {int((end_time - start_time).total_seconds() // 60)}',
-                          f'sec: {(end_time - start_time).total_seconds()}')
-        print(calculate_time)
-        raspuns.raise_for_status()
-        date_json: dict = raspuns.json()
-        print(date_json)
-        rezultat: str = date_json['forecast']['forecastday'][0]['hour'][0]['condition']['code']
-        print('Vremea de azi:', rezultat)
-        break
+
+def vremea():
+    """Aleratere vreme rea!"""
+    if ora_actuala == 21:
+        while True:
+            try:
+                raspuns = requests.get(url='http://api.weatherapi.com/v1/forecast.json', params=parametrii)
+                raspuns.raise_for_status()
+            except requests.exceptions.ConnectTimeout:
+                print('am intrat in exceptie')
+                continue
+            else:
+                print('am intrat in else_try')
+                date_json: dict = raspuns.json()
+                print(date_json)
+                rezultat: int = date_json['forecast']['forecastday'][0]['hour'][0]['condition']['code']
+                print('Vremea de azi:', rezultat)
+                time.sleep(3600)
+                break
+
+    else:
+        while ora_actuala != 21:
+            continue
+        else:
+            vremea()
+
+
+vremea()
