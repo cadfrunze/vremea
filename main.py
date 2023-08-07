@@ -2,6 +2,9 @@ import requests
 from datetime import datetime
 import time
 
+
+ALERT_VREMEA: list = [1006, 1009, 1063, 1087, 1180, 1183, 1186, 1189, 1192, 1195, 1237, 1240, 1243, 1246, 1249, 1252,
+                      1273, 1276]
 LON = 23.6
 LAT = 46.7667
 MY_API = '37f43c11b8f14ec799371509232907'
