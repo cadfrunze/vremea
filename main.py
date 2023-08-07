@@ -2,7 +2,6 @@ import requests
 from datetime import datetime
 import time
 
-
 ALERT_VREMEA: list = [1006, 1009, 1063, 1087, 1180, 1183, 1186, 1189, 1192, 1195, 1237, 1240, 1243, 1246, 1249, 1252,
                       1273, 1276]
 LON = 23.6
@@ -38,6 +37,8 @@ def vremea():
                 minut_sleep = 60 - datetime.now().minute
                 # print(minut_sleep)
                 print(f"Trebuie sa ateptam: {(minut_sleep + 1) * 60} secunde")
+                if rezultat in ALERT_VREMEA:
+                    pass
                 time.sleep(int((minut_sleep + 1) * 60))
                 break
     ora_actuala = datetime.now().hour
