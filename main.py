@@ -14,7 +14,7 @@ parametrii: dict = {
 }
 
 while True:
-    if ora_actuala == 5 or ora_actuala == 15:
+    if ora_actuala == 5 or ora_actuala == 20:
         start_time = datetime.now()
         raspuns = requests.get(url='http://api.weatherapi.com/v1/forecast.json', params=parametrii)
         end_time = datetime.now()
