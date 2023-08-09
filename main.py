@@ -9,7 +9,7 @@ MY_API = '37f43c11b8f14ec799371509232907'
 ora_actuala: int = datetime.now().hour
 parametrii: dict = {
     'key': MY_API,
-    'q': 'Kurye',
+    'q': 'Salzburg',
     # 'hour': ora_actuala,
     'lang': 'ro'
 
@@ -41,7 +41,7 @@ def vremea():
                     mesaj: str = 'Intre orele: ' + ','.join(coduri_target.values()) + ' trebuie sa iti iei umbrela!'
                     print(mesaj)
                 else:
-                    mesaj: str = 'La ora: ' + ','.join(coduri_target.values()) + ' trebuie sa iti iei umbrela!'
+                    mesaj: str = 'La ora ' + ','.join(coduri_target.values()) + ' trebuie sa iti iei umbrela!'
                     print(mesaj)
                 minut_sleep = 60 - datetime.now().minute
                 # print(minut_sleep)
