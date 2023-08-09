@@ -16,7 +16,6 @@ parametrii: dict = {
 }
 
 
-
 def vremea():
     """Functie pt avertizare vreme rea!"""
     global ora_actuala
