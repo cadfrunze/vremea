@@ -9,17 +9,17 @@ MY_API = '37f43c11b8f14ec799371509232907'
 ora_actuala: int = datetime.now().hour
 parametrii: dict = {
     'key': MY_API,
-    'q': 'Salzburg',
+    'q': 'Kurye',
     # 'hour': ora_actuala,
     'lang': 'ro'
 
 }
-ora_target = ''
+
 
 
 def vremea():
     """Functie pt avertizare vreme rea!"""
-    global ora_actuala, ora_target
+    global ora_actuala
     if ora_actuala == 9 or ora_actuala == 21:
         while True:
             try:
@@ -33,12 +33,17 @@ def vremea():
                 date_json: dict = raspuns.json()
                 # print(date_json)
                 rezultat: list = date_json['forecast']['forecastday'][0]['hour'][ora_actuala:ora_actuala + 4]
-                coduri_target: list = []
+                coduri_target: dict = {}
                 for element in rezultat:
                     if element['condition']['code'] in ALERT_VREMEA:
-                        coduri_target.append(element['condition']['code'])
-                        print(element['time'])
-                print(coduri_target)
+                        new_element: str = element['time'].split(' ')[-1]
+                        coduri_target[element['condition']['code']] = new_element
+                if len(coduri_target) > 1:
+                    mesaj: str = 'Intre orele: ' + ','.join(coduri_target.values()) + ' trebuie sa iti iei umbrela!'
+                    print(mesaj)
+                else:
+                    mesaj: str = 'La ora: ' + ','.join(coduri_target.values()) + ' trebuie sa iti iei umbrela!'
+                    print(mesaj)
                 minut_sleep = 60 - datetime.now().minute
                 # print(minut_sleep)
                 print(f"Trebuie sa ateptam: {(minut_sleep + 1) * 60} secunde")
