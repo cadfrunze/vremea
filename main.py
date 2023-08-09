@@ -17,7 +17,7 @@ parametrii: dict = {
 
 
 def vremea():
-    """Aleratere vreme rea!"""
+    """Functie pt avertizare vreme rea!"""
     global ora_actuala
     if ora_actuala == 9 or ora_actuala == 11:
         while True:
@@ -30,7 +30,7 @@ def vremea():
             else:
                 # raspuns va primi valoarea de counexiune 200 si va prelua datele
                 date_json: dict = raspuns.json()
-                # print(date_json)
+                print(date_json)
                 rezultat: int = date_json['forecast']['forecastday'][0]['hour'][0]['condition']['code']
                 print('Vremea de azi:', rezultat)
                 minut_sleep = 60 - datetime.now().minute
