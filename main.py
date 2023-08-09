@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime
 import time
-# dsasdasd
+
 ALERT_VREMEA: list = [1006, 1009, 1063, 1087, 1180, 1183, 1186, 1189, 1192, 1195, 1237, 1240, 1243, 1246, 1249, 1252,
                       1273, 1276]
 
@@ -9,7 +9,7 @@ MY_API = '37f43c11b8f14ec799371509232907'
 ora_actuala: int = datetime.now().hour
 parametrii: dict = {
     'key': MY_API,
-    'q': 'Östersund',
+    'q': 'Nürnberg',
     'hour': ora_actuala,
     'lang': 'ro'
 
@@ -19,7 +19,7 @@ parametrii: dict = {
 def vremea():
     """Aleratere vreme rea!"""
     global ora_actuala
-    if ora_actuala == 9 or ora_actuala == 0:
+    if ora_actuala == 9 or ora_actuala == 11:
         while True:
             try:
                 raspuns = requests.get(url='http://api.weatherapi.com/v1/forecast.json', params=parametrii)
